@@ -1,0 +1,762 @@
+<div class="fade-background"></div>
+<div class="main">
+<h1>Daggerheart</h1>
+<div class="section essentials-grid">
+  <label for="character_name">Name:</label>
+  <input type="text" name="character_name" id="character_name" /><br />
+
+  <label for="player_name">Player:</label>
+  <input type="text" name="player_name" id="player_name" /><br />
+
+  <label for="Ancestry">Ancestry:</label>
+  <input type="text" name="Ancestry" id="Ancestry" /><br />
+
+  <label for="Community">Community:</label>
+  <input type="text" name="Community" id="Community" /><br />
+
+  <label for="class">Class:</label>
+  <input type="text" name="class" id="class" /><br />
+
+  <label for="subclass">Subclass:</label>
+  <input type="text" name="subclass" id="subclass" /><br />
+
+  <label for="level">Level:</label>
+  <input type="number" name="attr_level" id="attr_level" min="1" max="20" /><br />
+</div>
+
+<div class="section">
+  <h2>Attributes</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Attribute</th>
+        <th>Value</th>
+      </tr>
+    </thead>
+    <tbody>
+<tr>
+  <td>Agility</td>
+  <td>
+    <input type="number" name="attr_agility" id="agility" min="-3" max="3" />
+    <button type="roll"
+  value="&{template:default} {{name=Agility Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{agility}}}">
+</button>
+  </td>
+</tr>
+
+<tr>
+  <td>Strength</td>
+  <td>
+    <input type="number" name="attr_strength" id="strength" min="-3" max="3" />
+        <button type="roll"
+  value="&{template:default} {{name=Strength Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{strength}}}">
+</button>
+  </td>
+</tr>
+
+<tr>
+  <td>Finesse</td>
+  <td>
+    <input type="number" name="attr_finesse" id="finesse" min="-3" max="3" />
+        <button type="roll"
+  value="&{template:default} {{name=Finesse Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{finesse}}}">
+</button>
+  </td>
+</tr>
+
+<tr>
+  <td>Instinct</td>
+  <td>
+    <input type="number" name="attr_instinct" id="instinct" min="-3" max="3" />
+        <button type="roll"
+  value="&{template:default} {{name=Instinct Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{instinct}}}">
+</button>
+  </td>
+</tr>
+
+<tr>
+  <td>Presence</td>
+  <td>
+    <input type="number" name="attr_presence" id="presence" min="-3" max="3" />
+        <button type="roll"
+  value="&{template:default} {{name=Presence Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{presence}}}">
+</button>
+  </td>
+</tr>
+
+<tr>
+  <td>Knowledge</td>
+  <td>
+    <input type="number" name="attr_knowledge" id="knowledge" min="-3" max="3" />
+        <button type="roll"
+  value="&{template:default} {{name=Knowledge Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{knowledge}}}">
+</button>
+  </td>
+</tr>
+    </tbody>
+  </table>
+</div>
+
+<h2>Combat Stats</h2>
+<div class="combat_stats">
+  
+<div>
+  
+  <h2>Damage Thresholds</h2>
+  <label>Major Damage Threshold</label>
+  <input type="text" name="attr_major_threshold" readonly />
+  <label>Severe Damage Threshold</label>
+  <input type="text" name="attr_severe_threshold" readonly />
+  <div class="armor-score-boxes">
+<label>Score:
+  <input type="number" name="attr_armor_score" />
+</label>
+<input type="hidden" name="attr_armor_score" class="sheet-armor_score" />
+
+<div class="sheet-score-checks">
+  <input type="checkbox" name="attr_armor_score_1" class="sheet-score-1" />
+  <input type="checkbox" name="attr_armor_score_2" class="sheet-score-2" />
+  <input type="checkbox" name="attr_armor_score_3" class="sheet-score-3" />
+  <input type="checkbox" name="attr_armor_score_4" class="sheet-score-4" />
+  <input type="checkbox" name="attr_armor_score_5" class="sheet-score-5" />
+  <input type="checkbox" name="attr_armor_score_6" class="sheet-score-6" />
+  <input type="checkbox" name="attr_armor_score_7" class="sheet-score-7" />
+  <input type="checkbox" name="attr_armor_score_8" class="sheet-score-8" />
+  <input type="checkbox" name="attr_armor_score_9" class="sheet-score-9" />
+  <input type="checkbox" name="attr_armor_score_10" class="sheet-score-10" />
+</div>
+
+</div>
+
+
+  <div>
+    <h2>HP</h2>
+    <!-- Controls -->
+    <div class="container">
+      <div class="radio-slots">
+        <label for="slot_count">Number of Slots:</label>
+        <label
+          ><input
+            type="radio"
+            name="attr_slots_enabled"
+            value="6"
+            id="slots6"
+            checked
+          />
+          6 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_slots_enabled"
+            value="7"
+            id="slots7"
+          />
+          7 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_slots_enabled"
+            value="8"
+            id="slots8"
+          />
+          8 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_slots_enabled"
+            value="9"
+            id="slots9"
+          />
+          9 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_slots_enabled"
+            value="10"
+            id="slots10"
+          />
+          10 Slots</label
+        >
+      </div>
+      <!-- Mirror value for CSS to read -->
+      <input
+        type="hidden"
+        name="attr_slots_enabled"
+        id="attr_slots_enabled"
+        value="1"
+      />
+
+      <div class="slots">
+        <input type="checkbox" name="attr_slot_1" class="slot slot-1" />
+        <input type="checkbox" name="attr_slot_2" class="slot slot-2" />
+        <input type="checkbox" name="attr_slot_3" class="slot slot-3" />
+        <input type="checkbox" name="attr_slot_4" class="slot slot-4" />
+        <input type="checkbox" name="attr_slot_5" class="slot slot-5" />
+        <input type="checkbox" name="attr_slot_6" class="slot slot-6" />
+        <input type="checkbox" name="attr_slot_7" class="slot slot-7" />
+        <input type="checkbox" name="attr_slot_8" class="slot slot-8" />
+        <input type="checkbox" name="attr_slot_9" class="slot slot-9" />
+        <input type="checkbox" name="attr_slot_10" class="slot slot-10" />
+      </div>
+    </div>
+
+    <h2>Stress</h2>
+
+    <!-- Controls -->
+    <div class="container">
+      <div class="radio-slots">
+        <label for="slot_count">Number of Slots:</label>
+        <label
+          ><input
+            type="radio"
+            name="attr_stress_slots_enabled"
+            value="6"
+            id="slots6"
+            checked
+          />
+          6 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_stress_slots_enabled"
+            value="7"
+            id="slots7"
+          />
+          7 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_stress_slots_enabled"
+            value="8"
+            id="slots8"
+          />
+          8 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_stress_slots_enabled"
+            value="9"
+            id="slots9"
+          />
+          9 Slots</label
+        >
+        <label
+          ><input
+            type="radio"
+            name="attr_stress_slots_enabled"
+            value="10"
+            id="slots10"
+          />
+          10 Slots</label
+        >
+      </div>
+      <!-- Mirror value for CSS to read -->
+      <input
+        type="hidden"
+        name="attr_stress_slots_enabled"
+        id="attr_stress_slots_enabled"
+        value="1"
+      />
+
+      <div class="slots">
+        <input
+          type="checkbox"
+          name="attr_stress_slot_1"
+          class="slot stress-slot-1"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_2"
+          class="slot stress-slot-2"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_3"
+          class="slot stress-slot-3"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_4"
+          class="slot stress-slot-4"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_5"
+          class="slot stress-slot-5"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_6"
+          class="slot stress-slot-6"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_7"
+          class="slot stress-slot-7"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_8"
+          class="slot stress-slot-8"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_9"
+          class="slot stress-slot-9"
+        />
+        <input
+          type="checkbox"
+          name="attr_stress_slot_10"
+          class="slot stress-slot-10"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="weapons-box">
+<fieldset class="repeating_weapons">
+  <div class="weapon-entry">
+    <div class="weapon-header">
+      <input type="text" name="attr_weapon_name" placeholder="Weapon Name" />
+
+<button type="roll"
+  name="roll_attack_damage"
+  value="&{template:default} {{name=@{weapon_name}}} {{Attack=[[2d12 + @{attack_trait_value}]]}} {{Damage=[[@{damage_die_size} + @{additional_damage}]]}}">
+  Roll Attack
+</button>
+
+<input type="hidden" name="attr_attack_trait_value" value="0" />
+
+    </div>
+
+    <!-- Hidden checkbox to toggle details -->
+    <input type="checkbox" class="details-toggle" name="attr_show_details" />
+
+    <!-- Label for toggling -->
+    <label class="details-toggle-label"><input type="checkbox" class="details-toggle" name="attr_show_details" />Show Details ▼</label>
+
+    <!-- Weapon details to show/hide -->
+    <div class="weapon-details">
+      <label>Attack Trait:
+        <select name="attr_attack_trait">
+          <option value="Agility">Agility</option>
+          <option value="Strength">Strength</option>
+          <option value="Finesse">Finesse</option>
+          <option value="Instinct">Instinct</option>
+          <option value="Presence">Presence</option>
+          <option value="Knowledge">Knowledge</option>
+        </select>
+      </label>
+
+      <label>Additional Damage:
+        <input type="text" name="attr_additional_damage" placeholder="e.g. 1d10+3" />
+      </label>
+
+      <label>Damage Die Size:
+        <select name="attr_damage_die_size">
+          <option value="d4">d4</option>
+          <option value="d6">d6</option>
+          <option value="d8">d8</option>
+          <option value="d10">d10</option>
+          <option value="d12">d12</option>
+        </select>
+      </label>
+
+      <label>Base Damage Type:
+        <select name="attr_base_damage_type">
+          <option value="Physical">Physical</option>
+          <option value="Magical">Magical</option>
+          <option value="Any">Any</option>
+        </select>
+      </label>
+
+      <label>Range:
+        <select name="attr_range">
+          <option value="Melee">Melee</option>
+          <option value="Very Close">Very Close</option>
+          <option value="Close">Close</option>
+          <option value="Far">Far</option>
+          <option value="Very Far">Very Far</option>
+        </select>
+      </label>
+
+      <label>Burden:
+        <select name="attr_burden">
+          <option value="One Handed">One Handed</option>
+          <option value="Two Handed">Two Handed</option>
+        </select>
+      </label>
+
+      <label>Weapon Type:
+        <select name="attr_weapon_type">
+          <option value="Primary">Primary</option>
+          <option value="Secondary">Secondary</option>
+        </select>
+      </label>
+    </div>
+  </div>
+</fieldset>
+</div>
+
+<div>
+<div class="hope-tracker">
+<h2 class="hope-name">Hope Tracker</h2>
+        <input
+          type="checkbox"
+          name="attr_hope-slot 1"
+          class="hope-slot 1"
+        />
+                <input
+          type="checkbox"
+          name="attr_hope-slot 2"
+          class="hope-slot 2"
+        />
+                <input
+          type="checkbox"
+          name="attr_hope-slot 3"
+          class="hope-slot 3"
+        />
+                <input
+          type="checkbox"
+          name="attr_hope-slot 4"
+          class="hope-slot 4"
+        />
+                <input
+          type="checkbox"
+          name="attr_hope-slot 5"
+          class="hope-slot 5"
+        />
+                <input
+          type="checkbox"
+          name="attr_hope-slot 6"
+          class="hope-slot 6"
+        />
+</div>
+<div class="experiences-box">
+  <h1 style="color: white; background-color: black">Experiences:</h1>
+  <fieldset class="repeating_experiences-box">
+    <div class="repeating_experiences">
+      <div class="attr_grid_item">
+        <label for="attr_experiences_experience_field">Experience:</label>
+        <input
+          type="text"
+          class="attr_experiences_experience_input"
+          id="attr_experiences_experience_field"
+          name="attr_experiences_experience_field"
+        ></input>
+      </div>
+      <div class="attr_grid_item">
+        <label for="attr_experiences_bonus_field">Bonus:</label>
+        <input
+          type="number"
+          class="attr_experiences_bonus_input"
+          id="attr_experiences_bonus_field"
+          name="attr_experiences_bonus_field"
+        ></input>
+      </div>
+      </div>
+    </div>
+  </fieldset>
+</div>
+</div>
+
+<div class="tab-section">
+  <!-- Radio inputs (tab selectors) -->
+  <input type="radio" name="sheet-tab" id="tab-effects" class="tab-toggle" checked>
+  <input type="radio" name="sheet-tab" id="tab-equipment" class="tab-toggle">
+  <input type="radio" name="sheet-tab" id="tab-details" class="tab-toggle">
+  <input type="radio" name="sheet-tab" id="tab-journal" class="tab-toggle">
+
+  <!-- Tab labels -->
+  <div class="tabs">
+    <label for="tab-effects">Effects & Features</label>
+    <label for="tab-equipment">Equipment</label>
+    <label for="tab-details">Details</label>
+    <label for="tab-journal">Journal</label>
+  </div>
+
+  <!-- Effects Tab -->
+  <div class="tab-content tab-effects">
+    <div class="effects-features-tab">
+      <div class="domain-effects">
+    <h2>Domain Effects:</h2>
+    <fieldset class="repeating_domain_effects">
+      <div class="domain-effect-item">
+        <label>Name:</label>
+          <input type="text" name="attr_domain_effect_name" />
+        
+        <label>Domain:</label>
+          <input type="text" name="attr_domain_effect_domain" />
+
+        <label>Type:</label>
+          <input type="text" name="attr_domain_effect_type" />
+
+        <label>Description:</label>
+          <input type="text" name="attr_domain_effect_description" />
+
+        <label>Active?:</label>
+          <input type="checkbox" name="attr_domain_effect_active" />
+
+        <label>Bonus:</label>
+          <input type="text" name="attr_domain_effect_bonus" />
+
+        <label>Roll 1:</label>
+          <input type="text" name="attr_domain_effect_roll_1" />
+
+        <label>Roll 2:</label>
+          <input type="text" name="attr_domain_effect_roll_2" />
+
+        <label>Cost:</label>
+          <input type="text" name="attr_domain_effect_cost" />
+
+        <label>Per Short Rest:</label>
+          <input type="text" name="attr_domain_effect_per_short_rest" />
+    </fieldset>
+    </div>
+    <div class="features">
+    <h2>Features:</h2>
+        <fieldset class="repeating_features">
+      <div class="feature-item">
+        <label>Name:</label>
+          <input type="text" name="attr_feature_name" />
+        
+        <label>Source:</label>
+          <input type="text" name="attr_feature_source" />
+
+        <label>Description:</label>
+          <input type="text" name="attr_domain_effect_description" />
+
+        <label>Active?:</label>
+          <input type="checkbox" name="attr_domain_effect_active" />
+
+        <label>Bonus:</label>
+          <input type="text" name="attr_domain_effect_bonus" />
+
+        <label>Roll 1:</label>
+          <input type="text" name="attr_domain_effect_roll_1" />
+
+        <label>Roll 2:</label>
+          <input type="text" name="attr_domain_effect_roll_2" />
+
+        <label>Cost:</label>
+          <input type="text" name="attr_domain_effect_cost" />
+
+        <label>Per Short Rest:</label>
+          <input type="text" name="attr_domain_effect_per_short_rest" />
+    </fieldset>
+    </div>
+  </div>
+  </div>
+
+  <!-- Equipment Tab (fixed here) -->
+  <div class="tab-content tab-equipment">
+    <div class="gold">
+    <h2>Gold:</h2>
+    <label>Handfulls:</label>
+      <input type="number" name="attr_gold_handfulls" />
+    <label>Bags:</label>
+      <input type="number" name="attr_gold_bags" />
+    <label>Chest:</label>
+      <input type="number" name="attr_gold_chest" />
+    </div>
+    <h1 style="color: white; background-color: black">Equipment:</h1>
+<fieldset class="repeating_armor">
+  <div class="armor-item">
+    <label>
+      <input type="checkbox" name="attr_armor_active" /> Equipped
+    </label>
+
+    <label>Name:
+      <input type="text" name="attr_armor_name" />
+    </label>
+
+    <label>Description:
+      <textarea name="attr_armor_description" class="overflow"></textarea>
+    </label>
+
+    <label>Major Threshold:
+      <input type="number" name="attr_armor_major_threshold" />
+    </label>
+
+    <label>Severe Threshold:
+      <input type="number" name="attr_armor_severe_threshold" />
+    </label>
+
+    <label>Score:
+      <input type="number" name="attr_armor_score" />
+    </label>
+  </div>
+</fieldset>
+  </div>
+
+  <!-- Details Tab -->
+  <div class="tab-content tab-details">
+    <h2>Details</h2>
+<fieldset class="repeating_armor">
+    <label>Question:
+      <input type="text" name="attr_details_question" />
+    </label>
+
+      <label>Answer:
+      <textarea name="attr_details_description" class="overflow"></textarea>
+    </label>
+    </fieldset>
+  </div>
+
+  <!-- Journal Tab -->
+  <div class="tab-content tab-journal">
+    <h2>Journal</h2>
+<fieldset class="repeating_armor">
+    <label>Title:
+      <input type="text" name="attr_details_question" />
+    </label>
+
+      <label>Entry:
+      <textarea name="attr_details_description" class="overflow"></textarea>
+    </label>
+    </fieldset>
+  </div>
+</div>
+
+
+<script type="text/worker">
+  on("change:level change:armor_major_threshold change:armor_severe_threshold", function () {
+    getAttrs(["level", "armor_major_threshold", "armor_severe_threshold"], function (values) {
+      const level = values.level || "0";
+      const major = values.armor_major_threshold || "0";
+      const severe = values.armor_severe_threshold || "0";
+
+      const summary = `Level ${level}: Major ${major} / Severe ${severe}`;
+      setAttrs({ armor_summary: summary });
+    });
+  });
+</script>
+
+<script type="text/worker">
+  on("change:level change:armor_major_threshold change:armor_severe_threshold", function () {
+    getAttrs(["level", "armor_major_threshold", "armor_severe_threshold"], function (values) {
+      const level = parseInt(values.level) || 0;
+      const armorMajor = parseInt(values.armor_major_threshold) || 0;
+      const armorSevere = parseInt(values.armor_severe_threshold) || 0;
+
+      const majorThreshold = level + armorMajor;
+      const severeThreshold = level + armorSevere;
+
+      const summary = `Level ${level}: Major ${majorThreshold} / Severe ${severeThreshold}`;
+
+      setAttrs({
+        attr_major_threshold: majorThreshold,
+        attr_severe_threshold: severeThreshold,
+        armor_summary: summary
+      });
+    });
+  });
+</script>
+
+<script type="text/worker">
+  on("change:level change:armor_major_threshold change:armor_severe_threshold", function () {
+    getAttrs(["level", "armor_major_threshold", "armor_severe_threshold"], function (values) {
+      const level = parseInt(values.level) || 0;
+      const armorMajor = parseInt(values.armor_major_threshold) || 0;
+      const armorSevere = parseInt(values.armor_severe_threshold) || 0;
+
+      const majorThreshold = level + armorMajor;
+      const severeThreshold = level + armorSevere;
+
+      const summary = `Level ${level}: Major ${majorThreshold} / Severe ${severeThreshold}`;
+
+      setAttrs({
+        major_threshold: majorThreshold,
+        severe_threshold: severeThreshold,
+        armor_summary: summary
+      });
+    });
+  });
+</script>
+
+<script type="text/worker">
+  on("change:level change:repeating_armor change:repeating_armor:armor_active change:repeating_armor:armor_major_threshold change:repeating_armor:armor_severe_threshold", function () {
+    getSectionIDs("repeating_armor", function (ids) {
+      getAttrs(["level"], function (base) {
+        const level = parseInt(base.level) || 0;
+
+        // Fetch all repeating armor attributes
+        const fieldNames = [];
+        ids.forEach(id => {
+          fieldNames.push(
+            `repeating_armor_${id}_armor_active`,
+            `repeating_armor_${id}_armor_major_threshold`,
+            `repeating_armor_${id}_armor_severe_threshold`
+          );
+        });
+
+        getAttrs(fieldNames, function (fields) {
+          let major = 0;
+          let severe = 0;
+
+          // Use first checked armor
+          for (let id of ids) {
+            if (fields[`repeating_armor_${id}_armor_active`] === "on") {
+              major = parseInt(fields[`repeating_armor_${id}_armor_major_threshold`]) || 0;
+              severe = parseInt(fields[`repeating_armor_${id}_armor_severe_threshold`]) || 0;
+              break;
+            }
+          }
+
+          const majorThreshold = level + major;
+          const severeThreshold = level + severe;
+          const summary = `Level ${level}: Major ${majorThreshold} / Severe ${severeThreshold}`;
+
+          setAttrs({
+            major_threshold: majorThreshold,
+            severe_threshold: severeThreshold,
+            armor_summary: summary
+          });
+        });
+      });
+    });
+  });
+</script>
+
+<script type="text/worker">
+  on("change:repeating_armor:armor_score", function (eventInfo) {
+    const id = eventInfo.sourceAttribute.split("_")[2];
+    const baseName = `repeating_armor_${id}`;
+
+    getAttrs([`${baseName}_armor_score`], function (values) {
+      const score = parseInt(values[`${baseName}_armor_score`]) || 0;
+
+      const updates = {};
+      for (let i = 1; i <= 10; i++) {
+        updates[`${baseName}_armor_score_${i}_disabled`] = i <= score ? "0" : "1";
+      }
+
+      setAttrs(updates);
+    });
+  });
+</script>
+
+<script type="text/worker">
+on("change:repeating_weapons:attack_trait", function(eventInfo) {
+  getAttrs([
+    "repeating_weapons_" + eventInfo.sourceAttribute.split("_")[2] + "_attack_trait",
+    "agility", "strength", "finesse", "instinct", "presence", "knowledge"
+  ], function(values) {
+    const trait = (values[`repeating_weapons_${eventInfo.sourceAttribute.split("_")[2]}_attack_trait`] || "").toLowerCase();
+    const traitValue = parseInt(values[trait]) || 0;
+    const setting = {};
+    setting[`repeating_weapons_${eventInfo.sourceAttribute.split("_")[2]}_attack_trait_value`] = traitValue;
+    setAttrs(setting);
+  });
+});
+</script>
+
+</div>
