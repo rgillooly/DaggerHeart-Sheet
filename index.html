@@ -27,13 +27,29 @@
 
 <div class="resource-toggle-wrapper">
   <input type="checkbox" id="toggle-resource-menu" class="toggle-resource-menu" name="attr_show_resource_menu" />
-  <label class="resource-menu-button" for="toggle-resource-menu">🌀 Replenish Resources</label>
+  <label class="resource-menu-button" for="toggle-resource-menu">Short Rest</label>
 
   <div class="resource-menu">
     <button type="roll" value="&{template:default} {{name=Replenish HP}} {{Result=[[1d4]]}}">Tend To Wounds</button>
     <button type="roll" value="&{template:default} {{name=Replenish Resolve}} {{Result=[[1d4]]}}">Clear Stress</button>
     <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Result=[[1d4]]}}">Repair Armor</button>
-    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope}}">Prepare</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope, or 2 if you prepare with others}}">Prepare</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
+  </div>
+</div>
+
+<div></div>
+
+<div class="resource-toggle-wrapper-2">
+  <input type="checkbox" id="toggle-resource-menu-2" class="toggle-resource-menu-2" name="attr_show_resource_menu-2" />
+  <label class="resource-menu-button-2" for="toggle-resource-menu-2">Long Rest</label>
+
+  <div class="resource-menu-2">
+    <button type="roll" value="&{template:default} {{name=Replenish HP}} {{You Regenerate All Wounds}}">Tend To All Wounds</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Resolve}} {{You Clear All Stress}}">Clear All Stress</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Repair All Armor}}">Repair All Armor</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope, or 2 if you prepare with others}}">Prepare</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{You Make Progress In Your Project}}">Work On A Project</button>
     <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
   </div>
 </div>
@@ -551,11 +567,13 @@
           </select>
         </label>
 
-        <label>Roll 1:</label>
-          <input type="text" name="attr_domain_effect_roll_1" />
+<label>Roll 1:</label>
+<button type="roll" name="roll_domain_effect_roll_1" value="&{template:default} {{name=Domain Effect Roll 1}} {{Roll=[[@{domain_effect_roll_1}]]}}">Roll 1</button>
+<input type="text" name="attr_domain_effect_roll_1" />
 
-        <label>Roll 2:</label>
-          <input type="text" name="attr_domain_effect_roll_2" />
+<label>Roll 2:</label>
+<button type="roll" name="roll_domain_effect_roll_2" value="&{template:default} {{name=Domain Effect Roll 2}} {{Roll=[[@{domain_effect_roll_2}]]}}">Roll 2</button>
+<input type="text" name="attr_domain_effect_roll_2" />
 
         <label>Cost:</label>
           <input type="text" name="attr_domain_effect_cost" />
@@ -595,11 +613,13 @@
           </select>
         </label>
 
-        <label>Roll 1:</label>
-          <input type="text" name="attr_feature_effect_roll_1" />
+<label>Roll 1:</label>
+<button type="roll" name="roll_feature_effect_roll_1" value="&{template:default} {{name=Feature Roll 1}} {{Roll=[[@{feature_effect_roll_1}]]}}">Roll 1</button>
+<input type="text" name="attr_feature_effect_roll_1" />
 
-        <label>Roll 2:</label>
-          <input type="text" name="attr_feature_effect_roll_2" />
+<label>Roll 2:</label>
+<button type="roll" name="roll_feature_effect_roll_2" value="&{template:default} {{name=Feature Roll 2}} {{Roll=[[@{feature_effect_roll_2}]]}}">Roll 2</button>
+<input type="text" name="attr_feature_effect_roll_2" />
 
         <label>Cost:</label>
           <input type="text" name="attr_feature_effect_cost" />
