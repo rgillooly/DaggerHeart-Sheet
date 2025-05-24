@@ -1,6 +1,7 @@
 <div class="fade-background"></div>
 <div class="main">
 <h1>Daggerheart</h1>
+<div class="name-grid">
 <div class="section essentials-grid">
   <label for="character_name">Name:</label>
   <input type="text" name="character_name" id="character_name" /><br />
@@ -22,6 +23,27 @@
 
   <label for="level">Level:</label>
   <input type="number" name="attr_level" id="attr_level" min="1" max="20" /><br />
+</div>
+
+<div class="resource-toggle-wrapper">
+  <input type="checkbox" id="toggle-resource-menu" class="toggle-resource-menu" name="attr_show_resource_menu" />
+  <label class="resource-menu-button" for="toggle-resource-menu">🌀 Replenish Resources</label>
+
+  <div class="resource-menu">
+    <button type="roll" value="&{template:default} {{name=Replenish HP}} {{Result=[[1d4]]}}">Tend To Wounds</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Resolve}} {{Result=[[1d4]]}}">Clear Stress</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Result=[[1d4]]}}">Repair Armor</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope}}">Prepare</button>
+    <button type="roll" value="&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
+  </div>
+</div>
+
+</div>
+
+<div>
+<input type="checkbox" id="vulnerable" class="vulnerable" name="attr_vulnerable" /><label for="vulnerable">Vulnerable</label>
+<input type="checkbox" id="state_hidden" class="state_hidden" name="state_hidden" /><label for="hidden">Hidden</label>
+<input type="checkbox" id="restrained" class="restrained" name="attr_restrained" /><label for="restrained">Restrained</label>
 </div>
 
 <div class="section">
@@ -512,14 +534,14 @@
           <input type="text" name="attr_domain_effect_description" />
 
         <label>Active?:</label>
-          <input type="checkbox" name="attr_bonus_active" />
+          <input type="checkbox" name="attr_domain_bonus_active" />
 
         <label>Bonus:</label>
-          <input type="number" name="attr_bonus_score" value="0" />
+          <input type="number" name="attr_domain_bonus_score" value="0" />
 
         <label>
           Modify Stat:
-          <select name="attr_mod_target">
+          <select name="attr_domain_mod_target">
             <option value="strength">Strength</option>
             <option value="agility">Agility</option>
             <option value="finesse">Finesse</option>
@@ -553,17 +575,17 @@
           <input type="text" name="attr_feature_source" />
 
         <label>Description:</label>
-          <input type="text" name="attr_domain_effect_description" />
+          <input type="text" name="attr_feature_effect_description" />
 
         <label>Active?:</label>
-          <input type="checkbox" name="attr_bonus_active" />
+          <input type="checkbox" name="attr_feature_bonus_active" />
 
         <label>Bonus:</label>
-          <input type="number" name="attr_bonus_score" value="0" />
+          <input type="number" name="attr_feature_bonus_score" value="0" />
 
         <label>
           Modify Stat:
-          <select name="attr_mod_target">
+          <select name="attr_feature_mod_target">
             <option value="strength">Strength</option>
             <option value="agility">Agility</option>
             <option value="finesse">Finesse</option>
@@ -574,16 +596,16 @@
         </label>
 
         <label>Roll 1:</label>
-          <input type="text" name="attr_domain_effect_roll_1" />
+          <input type="text" name="attr_feature_effect_roll_1" />
 
         <label>Roll 2:</label>
-          <input type="text" name="attr_domain_effect_roll_2" />
+          <input type="text" name="attr_feature_effect_roll_2" />
 
         <label>Cost:</label>
-          <input type="text" name="attr_domain_effect_cost" />
+          <input type="text" name="attr_feature_effect_cost" />
 
         <label>How Many Uses:</label>
-          <input type="number" name="attr_domain_effect_per_short_rest" />
+          <input type="number" name="attr_feature_effect_per_short_rest" />
     </fieldset>
     </div>
   </div>
@@ -816,31 +838,32 @@ on("change:mod_active change:mod_value change:mod_target change:strength change:
 </script>
 
 <script type="text/worker">
-const stats = ["agility", "strength", "finesse", "instinct", "presence", "knowledge"];
+const stats = ["strength", "agility", "finesse", "instinct", "presence", "knowledge"];
 
 // Helper to calculate the total modifier for one stat
 const calculateStatTotal = (stat) => {
   getAttrs([`${stat}_base`], function (baseValues) {
     const base = parseInt(baseValues[`${stat}_base`], 10) || 0;
 
-    const getBonusSum = (section, callback) => {
+    // Helper for one repeating section
+    const getBonusSum = (section, prefix, callback) => {
       getSectionIDs(section, function (ids) {
         if (ids.length === 0) return callback(0);
 
         const attrList = ids.flatMap(id => [
-          `${section}_${id}_bonus_active`,
-          `${section}_${id}_bonus_score`,
-          `${section}_${id}_mod_target`
+          `${section}_${id}_${prefix}bonus_active`,
+          `${section}_${id}_${prefix}bonus_score`,
+          `${section}_${id}_${prefix}mod_target`,
         ]);
 
-        getAttrs(attrList, function (bonusValues) {
+        getAttrs(attrList, function (values) {
           let sum = 0;
           ids.forEach(id => {
-            const active = bonusValues[`${section}_${id}_bonus_active`] === "on";
-            const score = parseInt(bonusValues[`${section}_${id}_bonus_score`], 10) || 0;
-            const target = bonusValues[`${section}_${id}_mod_target`];
+            const isActive = values[`${section}_${id}_${prefix}bonus_active`] === "on";
+            const score = parseInt(values[`${section}_${id}_${prefix}bonus_score`], 10) || 0;
+            const target = values[`${section}_${id}_${prefix}mod_target`] || "";
 
-            if (active && target === stat) {
+            if (isActive && target === stat) {
               sum += score;
             }
           });
@@ -849,24 +872,32 @@ const calculateStatTotal = (stat) => {
       });
     };
 
-    getBonusSum("repeating_bonuses", function (sum1) {
-      getBonusSum("repeating_bonuses_2", function (sum2) {
-        const total = base + sum1 + sum2;
+    // Calculate both bonus sources
+    getBonusSum("repeating_bonuses", "domain_", function (domainSum) {
+      getBonusSum("repeating_bonuses_2", "feature_", function (featureSum) {
+        const total = base + domainSum + featureSum;
         setAttrs({ [`${stat}_total`]: total });
       });
     });
   });
 };
 
-// Set up watchers for all base stats and both bonus sections
+// Watchers
 stats.forEach(stat => {
   on(`change:${stat}_base`, () => calculateStatTotal(stat));
 });
 
-["repeating_bonuses", "repeating_bonuses_2"].forEach(section => {
+// Watch repeating bonuses
+[
+  { section: "repeating_bonuses", prefix: "domain_" },
+  { section: "repeating_bonuses_2", prefix: "feature_" }
+].forEach(({ section, prefix }) => {
   stats.forEach(stat => {
     on(`change:${section} remove:${section}`, () => calculateStatTotal(stat));
-    on(`change:${section}:bonus_active change:${section}:bonus_score change:${section}:mod_target`, () => calculateStatTotal(stat));
+    on(
+      `change:${section}:${prefix}bonus_active change:${section}:${prefix}bonus_score change:${section}:${prefix}mod_target`,
+      () => calculateStatTotal(stat)
+    );
   });
 });
 </script>
