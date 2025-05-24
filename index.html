@@ -37,9 +37,10 @@
 <tr>
   <td>Agility</td>
   <td>
-    <input type="number" name="attr_agility" id="agility" min="-3" max="3" />
-    <button type="roll"
-  value="&{template:default} {{name=Agility Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{agility}}}">
+  <input type="number" name="attr_agility_base"value="0" />
+  <input type="hidden" name="attr_agility_total" value="0" disabled />
+<button type="roll"
+  value="&{template:default} {{name=Agility Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=[[@{agility_total}]]}}">
 </button>
   </td>
 </tr>
@@ -47,9 +48,10 @@
 <tr>
   <td>Strength</td>
   <td>
-    <input type="number" name="attr_strength" id="strength" min="-3" max="3" />
+  <input type="number" name="attr_strength_base"value="0" />
+  <input type="hidden" name="attr_strength_total" value="0" disabled />
         <button type="roll"
-  value="&{template:default} {{name=Strength Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{strength}}}">
+  value="&{template:default} {{name=Strength Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=[[@{strength_total}]]}}">
 </button>
   </td>
 </tr>
@@ -57,9 +59,10 @@
 <tr>
   <td>Finesse</td>
   <td>
-    <input type="number" name="attr_finesse" id="finesse" min="-3" max="3" />
+  <input type="number" name="attr_finesse_base"value="0" />
+  <input type="hidden" name="attr_finesse_total" value="0" disabled />
         <button type="roll"
-  value="&{template:default} {{name=Finesse Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{finesse}}}">
+  value="&{template:default} {{name=Finesse Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=[[@{finesse_total}]]}}">
 </button>
   </td>
 </tr>
@@ -67,9 +70,10 @@
 <tr>
   <td>Instinct</td>
   <td>
-    <input type="number" name="attr_instinct" id="instinct" min="-3" max="3" />
+  <input type="number" name="attr_instinct_base"value="0" />
+  <input type="hidden" name="attr_instinct_total" value="0" disabled />
         <button type="roll"
-  value="&{template:default} {{name=Instinct Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{instinct}}}">
+  value="&{template:default} {{name=Instinct Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=[[@{instinct_total}]]}}">
 </button>
   </td>
 </tr>
@@ -77,9 +81,10 @@
 <tr>
   <td>Presence</td>
   <td>
-    <input type="number" name="attr_presence" id="presence" min="-3" max="3" />
+  <input type="number" name="attr_presence_base"value="0" />
+  <input type="hidden" name="attr_presence_total" value="0" disabled />
         <button type="roll"
-  value="&{template:default} {{name=Presence Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{presence}}}">
+  value="&{template:default} {{name=Presence Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=[[@{presence_total}]]}}">
 </button>
   </td>
 </tr>
@@ -87,9 +92,10 @@
 <tr>
   <td>Knowledge</td>
   <td>
-    <input type="number" name="attr_knowledge" id="knowledge" min="-3" max="3" />
+  <input type="number" name="attr_presence_base"value="0" />
+  <input type="hidden" name="attr_presence_total" value="0" disabled />
         <button type="roll"
-  value="&{template:default} {{name=Knowledge Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=@{knowledge}}}">
+  value="&{template:default} {{name=Knowledge Roll}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{Modifier=[[@{knowledge_total}]]}}">
 </button>
   </td>
 </tr>
@@ -108,6 +114,9 @@
   <label>Severe Damage Threshold</label>
   <input type="text" name="attr_severe_threshold" readonly />
   <div class="armor-score-boxes">
+    <label>Evasion:
+  <input type="number" name="attr_evasion" />
+</label>
 <label>Score:
   <input type="number" name="attr_armor_score" />
 </label>
@@ -488,7 +497,7 @@
     <div class="effects-features-tab">
       <div class="domain-effects">
     <h2>Domain Effects:</h2>
-    <fieldset class="repeating_domain_effects">
+    <fieldset class="repeating_bonuses">
       <div class="domain-effect-item">
         <label>Name:</label>
           <input type="text" name="attr_domain_effect_name" />
@@ -503,10 +512,22 @@
           <input type="text" name="attr_domain_effect_description" />
 
         <label>Active?:</label>
-          <input type="checkbox" name="attr_domain_effect_active" />
+          <input type="checkbox" name="attr_bonus_active" />
 
         <label>Bonus:</label>
-          <input type="text" name="attr_domain_effect_bonus" />
+          <input type="number" name="attr_bonus_score" value="0" />
+
+        <label>
+          Modify Stat:
+          <select name="attr_mod_target">
+            <option value="strength">Strength</option>
+            <option value="agility">Agility</option>
+            <option value="finesse">Finesse</option>
+            <option value="instinct">Instinct</option>
+            <option value="presence">Presence</option>
+            <option value="knowledge">Knowledge</option>
+          </select>
+        </label>
 
         <label>Roll 1:</label>
           <input type="text" name="attr_domain_effect_roll_1" />
@@ -517,13 +538,13 @@
         <label>Cost:</label>
           <input type="text" name="attr_domain_effect_cost" />
 
-        <label>Per Short Rest:</label>
-          <input type="text" name="attr_domain_effect_per_short_rest" />
+        <label>How Many Uses:</label>
+          <input type="number" name="attr_domain_effect_per_short_rest" />
     </fieldset>
     </div>
     <div class="features">
     <h2>Features:</h2>
-        <fieldset class="repeating_features">
+        <fieldset class="repeating_bonuses_2">
       <div class="feature-item">
         <label>Name:</label>
           <input type="text" name="attr_feature_name" />
@@ -535,10 +556,22 @@
           <input type="text" name="attr_domain_effect_description" />
 
         <label>Active?:</label>
-          <input type="checkbox" name="attr_domain_effect_active" />
+          <input type="checkbox" name="attr_bonus_active" />
 
         <label>Bonus:</label>
-          <input type="text" name="attr_domain_effect_bonus" />
+          <input type="number" name="attr_bonus_score" value="0" />
+
+        <label>
+          Modify Stat:
+          <select name="attr_mod_target">
+            <option value="strength">Strength</option>
+            <option value="agility">Agility</option>
+            <option value="finesse">Finesse</option>
+            <option value="instinct">Instinct</option>
+            <option value="presence">Presence</option>
+            <option value="knowledge">Knowledge</option>
+          </select>
+        </label>
 
         <label>Roll 1:</label>
           <input type="text" name="attr_domain_effect_roll_1" />
@@ -549,8 +582,8 @@
         <label>Cost:</label>
           <input type="text" name="attr_domain_effect_cost" />
 
-        <label>Per Short Rest:</label>
-          <input type="text" name="attr_domain_effect_per_short_rest" />
+        <label>How Many Uses:</label>
+          <input type="number" name="attr_domain_effect_per_short_rest" />
     </fieldset>
     </div>
   </div>
@@ -755,6 +788,85 @@ on("change:repeating_weapons:attack_trait", function(eventInfo) {
     const setting = {};
     setting[`repeating_weapons_${eventInfo.sourceAttribute.split("_")[2]}_attack_trait_value`] = traitValue;
     setAttrs(setting);
+  });
+});
+</script>
+
+<script type="text/worker">
+on("change:mod_active change:mod_value change:mod_target change:strength change:agility change:finesse change:instinct change:presence change:knowledge", function() {
+  getAttrs([
+    "mod_active", "mod_value", "mod_target",
+    "strength", "agility", "finesse", "instinct", "presence", "knowledge"
+  ], function(values) {
+    const modActive = values.mod_active === "on";
+    const modValue = parseInt(values.mod_value) || 0;
+    const target = values.mod_target;
+    
+    const stats = ["strength", "agility", "finesse", "instinct", "presence", "knowledge"];
+    let updates = {};
+
+    stats.forEach(stat => {
+      const base = parseInt(values[stat]) || 0;
+      updates[`mod_${stat}`] = base + (stat === target && modActive ? modValue : 0);
+    });
+
+    setAttrs(updates);
+  });
+});
+</script>
+
+<script type="text/worker">
+const stats = ["agility", "strength", "finesse", "instinct", "presence", "knowledge"];
+
+// Helper to calculate the total modifier for one stat
+const calculateStatTotal = (stat) => {
+  getAttrs([`${stat}_base`], function (baseValues) {
+    const base = parseInt(baseValues[`${stat}_base`], 10) || 0;
+
+    const getBonusSum = (section, callback) => {
+      getSectionIDs(section, function (ids) {
+        if (ids.length === 0) return callback(0);
+
+        const attrList = ids.flatMap(id => [
+          `${section}_${id}_bonus_active`,
+          `${section}_${id}_bonus_score`,
+          `${section}_${id}_mod_target`
+        ]);
+
+        getAttrs(attrList, function (bonusValues) {
+          let sum = 0;
+          ids.forEach(id => {
+            const active = bonusValues[`${section}_${id}_bonus_active`] === "on";
+            const score = parseInt(bonusValues[`${section}_${id}_bonus_score`], 10) || 0;
+            const target = bonusValues[`${section}_${id}_mod_target`];
+
+            if (active && target === stat) {
+              sum += score;
+            }
+          });
+          callback(sum);
+        });
+      });
+    };
+
+    getBonusSum("repeating_bonuses", function (sum1) {
+      getBonusSum("repeating_bonuses_2", function (sum2) {
+        const total = base + sum1 + sum2;
+        setAttrs({ [`${stat}_total`]: total });
+      });
+    });
+  });
+};
+
+// Set up watchers for all base stats and both bonus sections
+stats.forEach(stat => {
+  on(`change:${stat}_base`, () => calculateStatTotal(stat));
+});
+
+["repeating_bonuses", "repeating_bonuses_2"].forEach(section => {
+  stats.forEach(stat => {
+    on(`change:${section} remove:${section}`, () => calculateStatTotal(stat));
+    on(`change:${section}:bonus_active change:${section}:bonus_score change:${section}:mod_target`, () => calculateStatTotal(stat));
   });
 });
 </script>

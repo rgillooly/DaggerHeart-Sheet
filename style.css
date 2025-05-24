@@ -12,6 +12,7 @@ h2 {
   margin-bottom: 20px;
 }
 label {
+  color: white;
   display: inline-block;
   font-weight: bold;
 }
@@ -206,7 +207,9 @@ input[name="attr_stress_slots_enabled"][value="10"] ~ .slots .stress-slot-10 {
   display: block;
   max-width: 850px;
   border-radius: 16px; /* adjust radius as needed */
-  background-image: url("https://i.imgur.com/9ogvR2T.jpg");
+  background-image: url("https://i.imgur.com/d3UQaYS.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .combat_stats {
@@ -216,7 +219,7 @@ input[name="attr_stress_slots_enabled"][value="10"] ~ .slots .stress-slot-10 {
 }
 
 * {
-  color: rgb(32, 32, 32);
+  color: rgb(255, 255, 255);
   border-radius: 16px; /* adjust radius as needed */
 }
 
