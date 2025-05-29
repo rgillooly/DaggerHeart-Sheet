@@ -199,7 +199,8 @@ input[name="attr_stress_slots_enabled"][value="10"] ~ .slots .stress-slot-10 {
 
 .repeating_experiences {
   display: grid;
-  grid-template-columns: repeat(2, 100px);
+  grid-template-columns: repeat(2, 200px);
+  grid-row-start: 2;
 }
 
 .main {
@@ -303,8 +304,20 @@ textarea {
   display: none;
 }
 
-.weapon-entry input.details-toggle:checked ~ .weapon-details {
+input.details-toggle:checked ~ .weapon-details {
   display: block;
+}
+
+.domain-details {
+  display: none;
+}
+
+input.details-toggle:checked ~ .details-toggle-label + .domain-details {
+  display: block;
+}
+
+.detail-toggle-hidden {
+  display: none;
 }
 
 .details-toggle {
@@ -333,6 +346,10 @@ textarea {
 
 .weapons-box {
   width: 250px;
+}
+
+::placeholder {
+  color: rgb(255, 255, 255);
 }
 
 /* Hide all tab content panels by default */
@@ -411,6 +428,7 @@ textarea {
 .effects-features-tab {
   display: grid;
   grid-template-columns: repeat(6, 125px);
+  column-gap: 15px;
 }
 
 .domain-effects {
@@ -514,4 +532,8 @@ textarea {
   display: grid;
   grid-template-columns: repeat(2, 405px);
   grid-template-rows: 1;
+}
+
+.attr_experiences_experience_input {
+  width: 50px;
 }
