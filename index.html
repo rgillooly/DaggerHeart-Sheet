@@ -197,6 +197,18 @@
 </button>
   </td>
 </tr>
+
+<tr>
+  <td>Proficiency</td>
+  <td>
+  <input type="number" name="attr_proficiency_base"value="0" />
+  <input type="hidden" name="attr_proficiency_total" value="0" readonly />
+        <button type="roll"
+  value="@{whisper_type}&{template:default} {{name=Proficiency Roll}} {{Modifier=[[@{proficiency_total}]]}}">
+</button>
+  </td>
+</tr>
+
 <fieldset class="repeating_attrmods">
   <div class="gold-border">
   <select name="attr_mod_target">
@@ -334,204 +346,139 @@
 
 
 <div class="weapons-box">
-<h2 class="hp-header">Weapons</h2>
-<fieldset class="repeating_weapons">
-  <div class="weapon-entry gold-border">
-    <div class="weapon-header">
-      <input type="text" name="attr_weapon_name" placeholder="Weapon Name" />
-        <button class="quote-button" type="roll" name="roll_quote_all_weapon" value="@{whisper_type}&{template:default} {{name=Weapon: @{weapon_name}}}{{Attack Trait=@{attack_trait}}}{{Damage Die=@{damage_die_size}}}{{Additional Damage=@{additional_damage}}}{{Additional Features=@{additional_features}}}{{Base Damage Type=@{base_damage_type}}}{{Range=@{range}}}{{Burden=@{burden}}}{{Weapon Type=@{weapon_type}}}">
-</button>
-<button type="roll"
-  name="roll_attack_damage"
-  value="@{whisper_type}&{template:default} {{name=@{weapon_name}}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{@{attack_trait} Roll=[[ @{attack_trait_value} ]]}} {{Damage=[[@{damage_die_size} + @{total_global_damage_bonus}]]}}">
-  Roll Attack
-</button>
+  <h2 class="hp-header">Weapons</h2>
+  <fieldset class="repeating_weapons">
+    <div class="weapon-entry gold-border">
+      <div class="weapon-header">
+        <input type="text" name="attr_weapon_name" placeholder="Weapon Name" />
+        <button class="quote-button" type="roll" name="roll_quote_all_weapon"
+          value="@{whisper_type}&{template:default} {{name=Weapon: @{weapon_name}}}{{Attack Trait=@{attack_trait}}}{{Additional Features=@{additional_features}}}{{Base Damage Type=@{base_damage_type}}}{{Range=@{range}}}{{Burden=@{burden}}}{{Weapon Type=@{weapon_type}}}">
+        </button>
 
-<input type="hidden" name="attr_attack_trait_value" value="0" />
+<!-- Updated damage roll including global damage bonus -->
+<button type="roll" name="roll_attack_damage" value="@{whisper_type}&{template:default} {{name=@{weapon_name}}} {{Hope=[[1d12]]}} {{Fear=[[1d12]]}} {{@{attack_trait} Roll=[[ @{attack_trait_value} ]]}} {{Damage=[[@{proficiency_total}@{damage_die_size} + @{damage_bonus} + @{total_global_damage_bonus}]]}}">Roll Attack</button>
 
+        <input type="hidden" name="attr_attack_trait_value" value="0" />
+      </div>
+
+      <input type="checkbox" class="details-toggle" name="attr_show_details" />
+      <label class="details-toggle-label">
+        <input type="checkbox" class="details-toggle" name="attr_show_details" />Show Details ▼
+      </label>
+
+      <div class="weapon-details">
+        <label>Attack Trait:
+          <select name="attr_attack_trait">
+            <option value="Agility">Agility</option>
+            <option value="Strength">Strength</option>
+            <option value="Finesse">Finesse</option>
+            <option value="Instinct">Instinct</option>
+            <option value="Presence">Presence</option>
+            <option value="Knowledge">Knowledge</option>
+          </select>
+        </label>
+        <input type="hidden" name="attr_attack_trait_value" value="0" />
+
+        <label>Additional Features:
+          <input type="text" name="attr_additional_features" placeholder="extra attack, etc" />
+        </label>
+        <button class="quote-button" type="roll"
+          value="@{whisper_type}&{template:default} {{name=Additional Features}} {{Description=@{additional_features}}}"></button>
+
+        <!-- Damage Die Size Selection -->
+        <label>Damage Die Size:
+          <select name="attr_damage_die_size">
+            <option value="d4">d4</option>
+            <option value="d6">d6</option>
+            <option value="d8">d8</option>
+            <option value="d10">d10</option>
+            <option value="d12">d12</option>
+          </select>
+        </label>
+
+        <!-- New Damage Bonus Field -->
+        <label>Damage Bonus:
+          <input type="number" name="attr_damage_bonus" value="0" />
+        </label>
+
+        <label>Base Damage Type:
+          <select name="attr_base_damage_type">
+            <option value="Physical">Physical</option>
+            <option value="Magical">Magical</option>
+            <option value="Any">Any</option>
+          </select>
+        </label>
+
+        <label>Range:
+          <select name="attr_range">
+            <option value="Melee">Melee</option>
+            <option value="Very Close">Very Close</option>
+            <option value="Close">Close</option>
+            <option value="Far">Far</option>
+            <option value="Very Far">Very Far</option>
+          </select>
+        </label>
+
+        <label>Burden:
+          <select name="attr_burden">
+            <option value="One Handed">One Handed</option>
+            <option value="Two Handed">Two Handed</option>
+          </select>
+        </label>
+
+        <label>Weapon Type:
+          <select name="attr_weapon_type">
+            <option value="Primary">Primary</option>
+            <option value="Secondary">Secondary</option>
+          </select>
+        </label>
+      </div>
     </div>
+  </fieldset>
 
-    <!-- Hidden checkbox to toggle details -->
-    <input type="checkbox" class="details-toggle" name="attr_show_details" />
+  <input type="hidden" name="attr_total_global_damage_bonus" value="0" />
 
-    <!-- Label for toggling -->
-    <label class="details-toggle-label"><input type="checkbox" class="details-toggle" name="attr_show_details" />Show Details ▼</label>
-
-    <!-- Weapon details to show/hide -->
-    <div class="weapon-details">
-<label>Attack Trait:
-  <select name="attr_attack_trait">
-    <option value="Agility">Agility</option>
-    <option value="Strength">Strength</option>
-    <option value="Finesse">Finesse</option>
-    <option value="Instinct">Instinct</option>
-    <option value="Presence">Presence</option>
-    <option value="Knowledge">Knowledge</option>
-  </select>
-</label>
-<input type="hidden" name="attr_attack_trait_value" value="0" />
-
-
-
-      <label>Additional Damage:
-        <input type="text" name="attr_additional_damage" placeholder="e.g. 1d10+3" />
+  <h3>Weapon Modifiers</h3>
+  <fieldset class="repeating_weaponmods">
+    <div class="gold-border">
+      <label>Attack Modifier:
+        <input type="number" name="attr_attack_mod" value="0" />
       </label>
 
-      <label>Additional Damage:
-        <input type="text" name="attr_additional_features" placeholder="extra attack, etc" />
-      </label>
-      <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Additional Features}} {{Description=@{additional_features}}}"></button>
-      <label>Damage Die Size:
-        <select name="attr_damage_die_size">
-          <option value="d4">d4</option>
-          <option value="d6">d6</option>
-          <option value="d8">d8</option>
-          <option value="d10">d10</option>
-          <option value="d12">d12</option>
-        </select>
+      <label>Damage Modifier:
+        <input type="number" name="attr_damage_mod" value="0" />
       </label>
 
-      <label>Base Damage Type:
-        <select name="attr_base_damage_type">
-          <option value="Physical">Physical</option>
-          <option value="Magical">Magical</option>
-          <option value="Any">Any</option>
-        </select>
+      <label>
+        <input type="checkbox" name="attr_mod_enabled" value="1" />
+        Enabled
       </label>
-
-      <label>Range:
-        <select name="attr_range">
-          <option value="Melee">Melee</option>
-          <option value="Very Close">Very Close</option>
-          <option value="Close">Close</option>
-          <option value="Far">Far</option>
-          <option value="Very Far">Very Far</option>
-        </select>
-      </label>
-
-      <label>Burden:
-        <select name="attr_burden">
-          <option value="One Handed">One Handed</option>
-          <option value="Two Handed">Two Handed</option>
-        </select>
-      </label>
-
-      <label>Weapon Type:
-        <select name="attr_weapon_type">
-          <option value="Primary">Primary</option>
-          <option value="Secondary">Secondary</option>
-        </select>
-      </label>
-    </div>
-  </div>
-</fieldset>
-
-<input type="hidden" name="attr_total_global_damage_bonus" value="0" />
-
-<h3>Weapon Modifiers</h3>
-<fieldset class="repeating_weaponmods">
-  <div class="gold-border">
-
-    <label>Attack Modifier:
-      <input type="number" name="attr_attack_mod" value="0" />
-    </label>
-
-    <label>Damage Modifier:
-      <input type="number" name="attr_damage_mod" value="0" />
-    </label>
-
-    <label>
-      <input type="checkbox" name="attr_mod_enabled" value="1" />
-      Enabled
-    </label>
-
-  </div>
-</fieldset>
-
-</div>
-
-<div>
-<div>
-  <label class="white-label">Hope Slots:
-    <input class="white-input" type="number" name="attr_hope_max" value="6" min="0" max="6" />
-  </label>
-
-  <!-- Hidden flags for CSS -->
-  <input type="hidden" class="sheet-show_hope_slot_1" name="attr_show_hope_slot_1" value="0" />
-  <input type="hidden" class="sheet-show_hope_slot_2" name="attr_show_hope_slot_2" value="0" />
-  <input type="hidden" class="sheet-show_hope_slot_3" name="attr_show_hope_slot_3" value="0" />
-  <input type="hidden" class="sheet-show_hope_slot_4" name="attr_show_hope_slot_4" value="0" />
-  <input type="hidden" class="sheet-show_hope_slot_5" name="attr_show_hope_slot_5" value="0" />
-  <input type="hidden" class="sheet-show_hope_slot_6" name="attr_show_hope_slot_6" value="0" />
-
-  <div class="hope-tracker">
-    <h2 class="hope-name hp-header">Hope Tracker</h2>
-    <input type="checkbox" name="attr_hope_slot_1" class="hope-slot 1" value="1" />
-    <input type="checkbox" name="attr_hope_slot_2" class="hope-slot 2" value="1" />
-    <input type="checkbox" name="attr_hope_slot_3" class="hope-slot 3" value="1" />
-    <input type="checkbox" name="attr_hope_slot_4" class="hope-slot 4" value="1" />
-    <input type="checkbox" name="attr_hope_slot_5" class="hope-slot 5" value="1" />
-    <input type="checkbox" name="attr_hope_slot_6" class="hope-slot 6" value="1" />
-  </div>
-</div>
-
-<div class="experiences-box">
-  <h1 class="hp-header">Experiences:</h1>
-  <fieldset class="repeating_experiences-box">
-    <div class="repeating_experiences gold-border">
-      <div class="attr_grid_item">
-        <label for="attr_experiences_experience_field">Experience:</label>
-        <input
-          type="text"
-          class="attr_experiences_experience_input"
-          name="attr_experiences_experience_field"
-        ></input>
-      <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Experience Name}} {{Experience-Name Bonus=@{experiences_experience_field} @{experiences_bonus_field}}}"></button>
-      </div>
-      <div class="attr_grid_item">
-        <label for="attr_experiences_bonus_field">Bonus:</label>
-        <input
-          type="number"
-          class="attr_experiences_bonus_input"
-          name="attr_experiences_bonus_field"
-        ></input>
-      </div>
-      </div>
     </div>
   </fieldset>
 </div>
 
 <div class="resources-box">
-  <h1 class="hp-header">Resources:</h1>
+  <h2 class="hp-header">Resources</h2>
   <fieldset class="repeating_resources-box">
     <div class="repeating_resources gold-border">
       <div class="attr_grid_item">
-        <label for="attr_resources_resource_field">Resource:</label>
-        <input
-          type="text"
-          class="attr_resources_resource_input"
-          name="attr_resources_resource_name_field"
-        ></input>
-      <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Resource: @{resources_resource_name_field}}}{{Current=@{resources_current_field}}}{{Maximum=@{resources_maximum_field}}}"></button>
+        <label>Resource Name:</label>
+        <input type="text" name="attr_resources_resource_name_field" placeholder="e.g. Mana" />
       </div>
       <div class="attr_grid_item">
-        <label for="attr_resources_current_field">Current:</label>
-        <input
-          type="number"
-          class="attr_resources_current_input"
-          name="attr_resources_current_field"
-        ></input>
+        <label>Current:</label>
+        <input type="number" name="attr_resources_current_field" value="0" min="0" />
       </div>
-            <div class="attr_grid_item">
-        <label for="attr_resources_maximum_field">Maximum:</label>
-        <input
-          type="number"
-          class="attr_resources_maximum_input"
-          name="attr_resources_maximum_field"
-        ></input>
+      <div class="attr_grid_item">
+        <label>Maximum:</label>
+        <input type="number" name="attr_resources_maximum_field" value="0" min="0" />
       </div>
+      <div class="attr_grid_item">
+        <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Resource: @{resources_resource_name_field}}}{{Current=@{resources_current_field}}}{{Maximum=@{resources_maximum_field}}}">Show Resource</button>
       </div>
     </div>
+  </fieldset>
+</div>
 
 <div class="bottom-tab">
 <div class="tab-section">
@@ -1035,11 +982,11 @@
   <div class="weapon-entry gold-border">
     <div class="weapon-header">
       <input type="text" name="attr_weapon_name" placeholder="Weapon Name" />
-        <button class="quote-button" type="roll" name="roll_quote_all_weapon" value="@{whisper_type}&{template:default} {{name=Weapon: @{weapon_name}}}{{Attack Trait=@{attack_trait}}}{{Damage Die=@{damage_die_size}}}{{Additional Damage=@{additional_damage}}}{{Additional Features=@{additional_features}}}{{Base Damage Type=@{base_damage_type}}}{{Range=@{range}}}{{Burden=@{burden}}}{{Weapon Type=@{weapon_type}}}">
+        <button class="quote-button" type="roll" name="roll_quote_all_weapon" value="@{whisper_type}&{template:default} {{name=Weapon: @{weapon_name}}}{{Attack Trait=@{attack_trait}}}{{Additional Features=@{additional_features}}}{{Base Damage Type=@{base_damage_type}}}{{Range=@{range}}}{{Burden=@{burden}}}{{Weapon Type=@{weapon_type}}}">
 </button>
 <button type="roll"
   name="roll_attack_damage"
-  value="@{whisper_type}&{template:default} {{name=@{weapon_name}}} {{Attack=[[1d20]]}} {{@{attack_trait} Roll=[[ @{attack_trait_value} ]]}} {{Damage=[[@{damage_die_size} + @{additional_damage}]]}}">
+  value="@{whisper_type}&{template:default} {{name=@{weapon_name}}} {{Attack=[[1d20]]}} {{@{attack_trait} Roll=[[ @{attack_trait_value} ]]}}">
   Roll Attack
 </button>
 
@@ -1067,22 +1014,9 @@
       </label>
 
       <label>Additional Damage:
-        <input type="text" name="attr_additional_damage" placeholder="e.g. 1d10+3" />
-      </label>
-
-      <label>Additional Damage:
         <input type="text" name="attr_additional_features" placeholder="extra attack, etc" />
       </label>
       <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Additional Features}} {{Description=@{additional_features}}}"></button>
-      <label>Damage Die Size:
-        <select name="attr_damage_die_size">
-          <option value="d4">d4</option>
-          <option value="d6">d6</option>
-          <option value="d8">d8</option>
-          <option value="d10">d10</option>
-          <option value="d12">d12</option>
-        </select>
-      </label>
 
       <label>Base Damage Type:
         <select name="attr_base_damage_type">
@@ -1670,7 +1604,16 @@ on("change:hope_max sheet:opened", () => {
 </script>
 
 <script type="text/worker">
-const stats = ["strength", "agility", "finesse", "instinct", "presence", "knowledge", "attack"];
+const stats = [
+  "strength",
+  "agility",
+  "finesse",
+  "instinct",
+  "presence",
+  "knowledge",
+  "attack",
+  "proficiency"
+];
 
 // Calculate total stat from base + modifiers
 const calculateStatTotal = (stat) => {
@@ -1715,6 +1658,28 @@ const calculateStatTotal = (stat) => {
   });
 };
 
+// Calculate global damage bonus
+const calculateGlobalDamageBonus = () => {
+  getSectionIDs("repeating_weaponmods", (ids) => {
+    if (!ids.length) return setAttrs({ total_global_damage_bonus: 0 });
+
+    const fields = ids.flatMap(id => [
+      `repeating_weaponmods_${id}_damage_mod`,
+      `repeating_weaponmods_${id}_mod_enabled`
+    ]);
+
+    getAttrs(fields, (values) => {
+      let totalDamageBonus = 0;
+      ids.forEach(id => {
+        const enabled = values[`repeating_weaponmods_${id}_mod_enabled`] === "1";
+        if (!enabled) return;
+        totalDamageBonus += parseInt(values[`repeating_weaponmods_${id}_damage_mod`], 10) || 0;
+      });
+      setAttrs({ total_global_damage_bonus: totalDamageBonus });
+    });
+  });
+};
+
 // Update a single weapon row's trait value
 const updateWeaponTraitValue = (id) => {
   const traitAttr = `repeating_weapons_${id}_attack_trait`;
@@ -1746,12 +1711,17 @@ const updateAllWeaponTraitValues = () => {
 // Initial run on sheet open
 on("sheet:opened", () => {
   stats.forEach(stat => calculateStatTotal(stat));
+  calculateGlobalDamageBonus();
   updateAllWeaponTraitValues();
 });
 
 // Recalculate total when base value changes
 stats.forEach(stat => {
   on(`change:${stat}_base`, () => calculateStatTotal(stat));
+});
+
+on("change:repeating_weaponmods remove:repeating_weaponmods change:repeating_weaponmods:damage_mod change:repeating_weaponmods:mod_enabled", () => {
+  calculateGlobalDamageBonus();
 });
 
 // Listen for changes in domain/feature effect modifiers
@@ -1775,43 +1745,70 @@ on("change:repeating_weapons:attack_trait", (event) => {
 </script>
 
 <script type="text/worker">
-const baseStats = ["agility", "strength", "finesse", "instinct", "presence", "knowledge"];
+const baseStats = [
+  "agility",
+  "strength",
+  "finesse",
+  "instinct",
+  "presence",
+  "knowledge",
+  "proficiency"
+];
 
 baseStats.forEach(stat => {
-  on(`change:${stat}_base change:repeating_attrmods`, () => updateTotals());
+  on(`change:${stat}_base change:repeating_attrmods change:repeating_weaponmods`, () => updateTotals());
 });
 
 function updateTotals() {
   getSectionIDs("repeating_attrmods", ids => {
-    const attrList = baseStats.map(stat => `${stat}_base`);
-    let fieldNames = [...attrList];
-
-    ids.forEach(id => {
-      fieldNames.push(`repeating_attrmods_${id}_mod_target`);
-      fieldNames.push(`repeating_attrmods_${id}_mod_value`);
-      fieldNames.push(`repeating_attrmods_${id}_mod_enabled`);
-    });
-
-    getAttrs(fieldNames, values => {
-      let totals = {};
-      baseStats.forEach(stat => {
-        const base = parseInt(values[`${stat}_base`], 10) || 0;
-        totals[`${stat}_total`] = base;
-      });
+    getSectionIDs("repeating_weaponmods", weaponIds => {
+      const attrList = baseStats.map(stat => `${stat}_base`);
+      let fieldNames = [...attrList];
 
       ids.forEach(id => {
-        const enabled = values[`repeating_attrmods_${id}_mod_enabled`] === "1";
-        if (!enabled) return;
-
-        const target = values[`repeating_attrmods_${id}_mod_target`];
-        const value = parseInt(values[`repeating_attrmods_${id}_mod_value`], 10) || 0;
-
-        if (baseStats.includes(target)) {
-          totals[`${target}_total`] += value;
-        }
+        fieldNames.push(`repeating_attrmods_${id}_mod_target`);
+        fieldNames.push(`repeating_attrmods_${id}_mod_value`);
+        fieldNames.push(`repeating_attrmods_${id}_mod_enabled`);
       });
 
-      setAttrs(totals);
+      weaponIds.forEach(id => {
+        fieldNames.push(`repeating_weaponmods_${id}_damage_mod`);
+        fieldNames.push(`repeating_weaponmods_${id}_mod_enabled`);
+      });
+
+      getAttrs(fieldNames, values => {
+        let totals = {};
+
+        // Base stats totals
+        baseStats.forEach(stat => {
+          const base = parseInt(values[`${stat}_base`], 10) || 0;
+          totals[`${stat}_total`] = base;
+        });
+
+        // Attribute modifiers
+        ids.forEach(id => {
+          const enabled = values[`repeating_attrmods_${id}_mod_enabled`] === "1";
+          if (!enabled) return;
+
+          const target = values[`repeating_attrmods_${id}_mod_target`];
+          const value = parseInt(values[`repeating_attrmods_${id}_mod_value`], 10) || 0;
+
+          if (baseStats.includes(target)) {
+            totals[`${target}_total`] += value;
+          }
+        });
+
+        // Global damage bonus from weapon mods
+        let totalDamageBonus = 0;
+        weaponIds.forEach(id => {
+          const enabled = values[`repeating_weaponmods_${id}_mod_enabled`] === "1";
+          if (!enabled) return;
+          totalDamageBonus += parseInt(values[`repeating_weaponmods_${id}_damage_mod`], 10) || 0;
+        });
+        totals["total_global_damage_bonus"] = totalDamageBonus;
+
+        setAttrs(totals);
+      });
     });
   });
 }
