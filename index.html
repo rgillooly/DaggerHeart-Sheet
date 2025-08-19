@@ -28,14 +28,14 @@
 
   <!-- Parent toggle: Rest -->
   <div class="resource-toggle-wrapper">
-    <input type="checkbox" id="toggle-rest-menu" class="toggle-rest-menu" name="attr_show_rest_menu" />
+    <input type="checkbox" id="toggle-rest-menu" class="toggle-rest-menu details-toggle" name="attr_show_rest_menu" />
     <label class="resource-menu-button white-label" for="toggle-rest-menu">Downtime</label>
 
     <div class="resource-menu white-label">
 
       <!-- Child toggle: Short Rest -->
       <div class="resource-toggle-wrapper">
-        <input type="checkbox" id="toggle-short-rest" class="toggle-short-rest" name="attr_show_short_rest" />
+        <input type="checkbox" id="toggle-short-rest" class="toggle-short-rest details-toggle" name="attr_show_short_rest" />
         <label class="resource-submenu-button white-label" for="toggle-short-rest">Short Rest</label>
 
         <div class="resource-submenu">
@@ -49,7 +49,7 @@
 
       <!-- Child toggle: Long Rest -->
       <div class="resource-toggle-wrapper">
-        <input type="checkbox" id="toggle-long-rest" class="toggle-long-rest" name="attr_show_long_rest" />
+        <input type="checkbox" id="toggle-long-rest" class="toggle-long-rest details-toggle" name="attr_show_long_rest" />
         <label class="resource-submenu-button white-label" for="toggle-long-rest">Long Rest</label>
 
         <div class="resource-submenu">
@@ -67,8 +67,9 @@
 </div>
 
 <div class="conditions-wrapper">
+  <div>
   <!-- Toggle control -->
-  <input type="checkbox" id="toggle-conditions" class="toggle-conditions" name="attr_show_conditions" />
+  <input type="checkbox" id="toggle-conditions" class="toggle-conditions details-toggle" name="attr_show_conditions" />
   <label class="conditions-button white-label" for="toggle-conditions">Conditions</label>
 
   <!-- Hidden/Shown content -->
@@ -82,46 +83,38 @@
     <label class="conditions-label" for="restrained">Restrained</label>
     <input type="checkbox" id="restrained" class="restrained" name="attr_restrained" />
   </div>
+  </div>
 </div>
 
 <div class="level-wrapper">
-    <label class="level-label" for="level">Level:</label>
+  <label class="level-label" for="level">Level:</label>
   <input class="level-input"type="number" name="attr_level" id="attr_level" min="1" max="20" /><br />
 </div>
 <div class="etc-essentials-wrapper">
+<div class="char-info-wrapper">
+  <input class="char-info-input" type="text" name="attr_Community" id="attr_Community" placeholder="Community" size="15"/>
+  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Community}} {{Community=@{Community}}}"></button>
+
+  <input class="char-info-input" type="text" name="attr_Ancestry" id="attr_Ancestry" placeholder="Ancestry" size="15"/>
+  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Ancestry}} {{Ancestry=@{Ancestry}}}"></button>
+
+  <input class="char-info-input" type="text" name="attr_class" id="attr_Class" placeholder="Class" size="15"/>
+  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Class}} {{Class=@{class}}}"></button>
+
+  <input class="char-info-input" type="text" name="attr_subclass" id="attr_Subclass" placeholder="Subclass" size="15"/>
+  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Subclass}} {{Subclass=@{subclass}}}"></button>
+</div>
+<div class="player-name-wrapper">
   <label for="player_name">Player:</label>
   <input class="small-input" type="text" name="attr_player_name" id="attr_player_name" />
   <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Player Name}} {{Player Name=@{player_name}}}"></button>
-  <label for="Ancestry">Ancestry:</label>
-  <input class="small-input" type="text" name="attr_Ancestry" id="attr_Ancestry" />
-  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Ancestry}} {{Ancestry=@{Ancestry}}}"></button>
-  <label for="Community">Community:</label>
-  <input class="small-input" type="text" name="attr_Community" id="attr_Community" />
-  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Community}} {{Community=@{Community}}}"></button>
-  <label for="class">Class:</label>
-  <input class="small-input" type="text" name="attr_class" id="attr_class" />
-  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Class}} {{Class=@{class}}}"></button>
-  <label for="subclass">Subclass:</label>
-  <input class="small-input" type="text" name="attr_subclass" id="attr_subclass" />
-  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Subclass}} {{Subclass=@{subclass}}}"></button>
+  </div>
 </div>
-</div>
-<h2>Combat Stats</h2>
-<div class="combat_stats">  
-<div class="Damage-Wounds-Wrapper">
-  <div class="damage-thresholds">
-  <h2 class="hp-header">Damage Thresholds</h2>
-  <label>Major Damage Threshold</label>
-  <input type="text" name="attr_major_threshold" readonly />
-  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Major Threshold}} {{Major Threshold=@{major_threshold}}}"></button>
-  <label>Severe Damage Threshold</label>
-  <input type="text" name="attr_severe_threshold" readonly />
-  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Severe Threshold}} {{Severe Threshold=@{severe_threshold}}}"></button>
-  <div class="armor-score-boxes">
-    <label>Evasion:
-  <input type="number" name="attr_evasion" />
+
+<div class="row-1">
+    <div class="armor-score-boxes">
+  <input type="number" class="evasion-input" name="attr_evasion" />
   <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Evasion}} {{Evasion=@{evasion}}}"></button>
-</label>
 <label>Score:
   <input type="number" name="attr_armor_score" />
   <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Armor Score}} {{Armor Score=@{armor_score}}}"></button>
@@ -141,6 +134,20 @@
   <input type="checkbox" name="attr_armor_score_10" class="sheet-score-10" />
 </div>
 </div>
+</div>
+
+</div>
+<h2>Combat Stats</h2>
+<div class="combat_stats">  
+<div class="Damage-Wounds-Wrapper">
+  <div class="damage-thresholds">
+  <h2 class="hp-header">Damage Thresholds</h2>
+  <label>Major Damage Threshold</label>
+  <input type="text" name="attr_major_threshold" readonly />
+  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Major Threshold}} {{Major Threshold=@{major_threshold}}}"></button>
+  <label>Severe Damage Threshold</label>
+  <input type="text" name="attr_severe_threshold" readonly />
+  <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Severe Threshold}} {{Severe Threshold=@{severe_threshold}}}"></button>
 </div>
 
 <div class="attributes-wrapper">
@@ -382,9 +389,9 @@
         <input type="hidden" name="attr_attack_trait_value" value="0" />
       </div>
 
-      <input type="checkbox" class="details-toggle" name="attr_show_details" />
+      <input type="checkbox" class="details-toggle" name="attr_show_details"/>
       <label class="details-toggle-label">
-        <input type="checkbox" class="details-toggle" name="attr_show_details" />Show Details ▼
+        <input type="checkbox" class="details-toggle" name="attr_show_details"/>Show Details ▼
       </label>
 
       <div class="weapon-details">
@@ -536,8 +543,10 @@
         <button type="roll" name="roll_domain_effect_roll_2"
             value="@{whisper_type}&{template:default} {{name=Domain Roll 2}} {{Roll=[[@{domain_effect_roll_2}]]}}">
         </button>
-        <input type="checkbox" class="details-toggle" name="attr_domain_show_details" />
-    <span class="details-toggle-label">Show Details ▼</span>
+      <input type="checkbox" class="details-toggle" name="attr_show_details"/>
+      <label class="details-toggle-label">
+        <input type="checkbox" class="details-toggle" name="attr_show_details"/>Show Details ▼
+      </label>
 
         <div class="domain-details">
 
@@ -604,8 +613,10 @@
           <button type="roll" name="roll_feature_effect_roll_2"
             value="@{whisper_type}&{template:default} {{name=Feature Roll 2}} {{Roll=[[@{feature_effect_roll_2}]]}}">
           </button>
-        <input type="checkbox" class="details-toggle" name="attr_feature_show_details" />
-    <span class="details-toggle-label">Show Details ▼</span>
+      <input type="checkbox" class="details-toggle" name="attr_show_details"/>
+      <label class="details-toggle-label">
+        <input type="checkbox" class="details-toggle" name="attr_show_details"/>Show Details ▼
+      </label>
 
         <div class="feature-details">
 
