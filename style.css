@@ -83,19 +83,16 @@ input[type="text"] {
 }
 
 .name-input {
-  color: #eee;
+  color: #eee !important;
   padding: 15px;
-  width: 150px !important;
+  width: 300px !important;
   height: 75px !important;
-  background-color: rgb(31, 31, 31) !important; /* remove white bg */
-  border-color: transparent; /* remove white bg */
-  overflow: visible;
-  background-image: none !important;
-  font-size: 100%;
-  grid-column-start: 1;
-  grid-column-end: 1;
+  border: none !important; /* removes border fully */
+  background: transparent !important; /* no white background */
+  font-size: 30px !important; /* clear, single font size */
   text-align: left !important;
-  overflow: scroll;
+  grid-column: 1 / 2; /* cleaner grid syntax */
+  overflow: auto; /* adds scrollbars only if needed */
 }
 
 .level-input {
@@ -132,12 +129,25 @@ input[type="number"] {
   color: white !important;
 }
 
+/* Hide conditions by default */
 .conditions-grid {
+  display: none;
+  margin-top: 5px;
+}
+
+/* Show when checkbox is checked */
+.toggle-conditions:checked ~ .conditions-grid {
   display: grid;
-  grid-template-columns: repeat(6, 25px);
-  column-gap: 20px;
-  grid-column-start: 3 !important;
-  grid-column-end: 3 !important;
+  grid-template-columns: auto auto; /* two-column layout */
+  gap: 5px;
+}
+
+/* Style the toggle button */
+.conditions-button {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  cursor: pointer;
 }
 
 .condtions-label {
@@ -149,11 +159,30 @@ input[type="number"] {
   text-align: center !important;
 }
 
-.resources-wrapper {
-  display: grid;
-  grid-template-columns: repeat(1, 145px);
-  background-color: rgb(1, 0, 37);
-  border: 1px solid rgb(255, 153, 0);
+/* Hide all menus by default */
+.resource-menu,
+.resource-submenu {
+  display: none;
+  margin-left: 15px; /* indent child menus */
+}
+
+/* Show parent Rest menu when checked */
+.toggle-rest-menu:checked ~ .resource-menu {
+  display: block;
+}
+
+/* Show child menus (Short Rest, Long Rest) when checked */
+.toggle-short-rest:checked ~ .resource-submenu,
+.toggle-long-rest:checked ~ .resource-submenu {
+  display: block;
+}
+
+/* Style buttons consistently */
+.resource-menu-button,
+.resource-submenu-button {
+  display: block;
+  margin: 5px 0;
+  cursor: pointer;
 }
 
 .level-wrapper {
@@ -163,12 +192,15 @@ input[type="number"] {
   padding-left: 50px;
 }
 
+/* Essentials block */
 .etc-essentials-wrapper {
-  display: grid;
-  grid-template-columns: repeat(6, 95px);
-  color: #000;
-  column-gap: 45px;
-  height: 50px !important;
+  display: grid; /* nice for label/input/button triples */
+  grid-template-columns: auto 1fr auto; /* label | input | roll button */
+  gap: 5px 10px; /* row gap | column gap */
+  margin-bottom: 20px; /* space below essentials block */
+  padding: 10px;
+  border: 1px solid #555; /* optional: give it a border */
+  border-radius: 6px;
 }
 
 .etc-essentials-wrapper ~ ::placeholder {
@@ -410,7 +442,7 @@ input[name="attr_stress_slots_enabled"][value="10"] ~ .slots .stress-slot-10 {
 
 .essentials-grid {
   display: grid;
-  grid-template-columns: repeat(4, 207px);
+  grid-template-columns: repeat(4, 212px);
 }
 
 .repeating_experiences {
@@ -850,7 +882,7 @@ input.details-toggle:checked ~ .details-toggle-label + .domain-details {
 
 .name-grid {
   display: grid;
-  grid-template-columns: repeat(1, 810px);
+  grid-template-columns: repeat(1, 850px);
   background: linear-gradient(
     0deg,
     rgba(216, 216, 214, 0.8) 0%,
@@ -918,9 +950,27 @@ input[name^="attr_hope_slot_"] {
 #mode_character:checked ~ .sheet-character {
   display: block;
 }
-
 #mode_adversary:checked ~ .sheet-adversary {
   display: block;
+}
+
+.mode-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between; /* spread labels across container */
+  width: 100%; /* make it full width */
+  vertical-align: auto;
+}
+
+.mode-buttons label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+}
+
+.mode-buttons input[type="radio"] {
+  display: none; /* hide actual radio button */
 }
 
 .whisper-toggle {

@@ -1,14 +1,15 @@
 <div class="fade-background"></div>
 <div class="layout-root">
+  
 <!-- Radio buttons for manual toggle -->
 <input type="radio" name="attr_sheet_mode" id="mode_character" value="character" checked>
-<label class="white-label" for="mode_character">Character</label>
+<label class="white-label class-character" for="mode_character">Character</label>
 
 <input type="radio" name="attr_sheet_mode" id="mode_adversary" value="adversary">
-<label class="white-label" for="mode_adversary">Adversary</label>
+<label class="white-label class-adversary" for="mode_adversary">Adversary</label>
 <div class="sheet-character">
 <div class="sheet-normal-content">
-<div class="spacer"></div>
+<!-- <div class="spacer"></div> -->
   <div class="whisper-toggle">
   <label class="white-label">Whisper to GM?
     <select name="attr_whisper_type">
@@ -20,45 +21,67 @@
 <div class="name-grid">
 <div class="section essentials-grid">
 <div class="name-wrapper">
-  <label for="character_name">Name:</label>
-  <input type="text" name="attr_character_name" id="attr_character_name" />
+  <input type="text" name="attr_character_name" id="attr_character_name"  class="name-input" placeholder="Name:"/>
 </div>
 
 <div class="resources-wrapper">
-<div class="resource-toggle-wrapper">
-<input type="checkbox" id="toggle-resource-menu" class="toggle-resource-menu" name="attr_show_resource_menu" />
-<label class="resource-menu-button white-label" for="toggle-resource-menu">Short Rest</label>
 
-  <div class="resource-menu white-label">
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish HP}} {{Result=[[1d4]]}}">Tend To Wounds</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Resolve}} {{Result=[[1d4]]}}">Clear Stress</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Result=[[1d4]]}}">Repair Armor</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope, or 2 if you prepare with others}}">Prepare</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
+  <!-- Parent toggle: Rest -->
+  <div class="resource-toggle-wrapper">
+    <input type="checkbox" id="toggle-rest-menu" class="toggle-rest-menu" name="attr_show_rest_menu" />
+    <label class="resource-menu-button white-label" for="toggle-rest-menu">Downtime</label>
+
+    <div class="resource-menu white-label">
+
+      <!-- Child toggle: Short Rest -->
+      <div class="resource-toggle-wrapper">
+        <input type="checkbox" id="toggle-short-rest" class="toggle-short-rest" name="attr_show_short_rest" />
+        <label class="resource-submenu-button white-label" for="toggle-short-rest">Short Rest</label>
+
+        <div class="resource-submenu">
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish HP}} {{Result=[[1d4]]}}">Tend To Wounds</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Resolve}} {{Result=[[1d4]]}}">Clear Stress</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Result=[[1d4]]}}">Repair Armor</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope, or 2 if you prepare with others}}">Prepare</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
+        </div>
+      </div>
+
+      <!-- Child toggle: Long Rest -->
+      <div class="resource-toggle-wrapper">
+        <input type="checkbox" id="toggle-long-rest" class="toggle-long-rest" name="attr_show_long_rest" />
+        <label class="resource-submenu-button white-label" for="toggle-long-rest">Long Rest</label>
+
+        <div class="resource-submenu">
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish HP}} {{You Regenerate All Wounds}}">Tend To All Wounds</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Resolve}} {{You Clear All Stress}}">Clear All Stress</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Repair All Armor}}">Repair All Armor</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope, or 2 if you prepare with others}}">Prepare</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{You Make Progress In Your Project}}">Work On A Project</button>
+          <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
+        </div>
+      </div>
+
+    </div>
   </div>
 </div>
 
-<div></div>
+<div class="conditions-wrapper">
+  <!-- Toggle control -->
+  <input type="checkbox" id="toggle-conditions" class="toggle-conditions" name="attr_show_conditions" />
+  <label class="conditions-button white-label" for="toggle-conditions">Conditions</label>
 
-<div class="resource-toggle-wrapper-2">
-<input type="checkbox" id="toggle-resource-menu-2" class="toggle-resource-menu-2" name="attr_show_resource_menu-2" />
-<label class="resource-menu-button-2 white-label" for="toggle-resource-menu-2">Long Rest</label>
+  <!-- Hidden/Shown content -->
+  <div class="conditions-grid">
+    <label class="conditions-label" for="vulnerable">Vulnerable</label>
+    <input type="checkbox" id="vulnerable" class="vulnerable" name="attr_vulnerable" />
 
-  <div class="resource-menu-2">
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish HP}} {{You Regenerate All Wounds}}">Tend To All Wounds</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Resolve}} {{You Clear All Stress}}">Clear All Stress</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Repair All Armor}}">Repair All Armor</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{Gain 1 Hope, or 2 if you prepare with others}}">Prepare</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{You Make Progress In Your Project}}">Work On A Project</button>
-    <button type="roll" value="@{whisper_type}&{template:default} {{name=Replenish Spirit}} {{You do Something Else}}">Other</button>
+    <label class="conditions-label" for="hidden">Hidden</label>
+    <input type="checkbox" id="state_hidden" class="state_hidden" name="attr_state_hidden" />
+
+    <label class="conditions-label" for="restrained">Restrained</label>
+    <input type="checkbox" id="restrained" class="restrained" name="attr_restrained" />
   </div>
-</div>
-</div>
-
-<div class="conditions-grid">
-<label class="condtions-label" for="vulnerable">Vulnerable</label><input type="checkbox" id="vulnerable" class="vulnerable" name="attr_vulnerable" />
-<label class="condtions-label" for="hidden">Hidden</label><input type="checkbox" id="state_hidden" class="state_hidden" name="state_hidden" />
-<label class="condtions-label" for="restrained">Restrained</label><input type="checkbox" id="restrained" class="restrained" name="attr_restrained" />
 </div>
 
 <div class="level-wrapper">
@@ -83,8 +106,6 @@
   <button class="quote-button" type="roll" value="@{whisper_type}&{template:default} {{name=Subclass}} {{Subclass=@{subclass}}}"></button>
 </div>
 </div>
-</div>
-
 <h2>Combat Stats</h2>
 <div class="combat_stats">  
 <div class="Damage-Wounds-Wrapper">
@@ -713,6 +734,9 @@
 </div>
 </div>
 </div>
+
+
+</div>
 </div>
 
 <div class="sheet-adversary">
@@ -772,10 +796,22 @@
 </div>
 </div>
 
-<div class="conditions-grid">
-<label class="condtions-label" for="vulnerable">Vulnerable</label><input type="checkbox" id="vulnerable" class="vulnerable" name="attr_vulnerable" />
-<label class="condtions-label" for="hidden">Hidden</label><input type="checkbox" id="state_hidden" class="state_hidden" name="state_hidden" />
-<label class="condtions-label" for="restrained">Restrained</label><input type="checkbox" id="restrained" class="restrained" name="attr_restrained" />
+<div class="conditions-wrapper">
+  <!-- Toggle control -->
+  <input type="checkbox" id="toggle-conditions" class="toggle-conditions" name="attr_show_conditions" />
+  <label class="conditions-button white-label" for="toggle-conditions">Conditions</label>
+
+  <!-- Hidden/Shown content -->
+  <div class="conditions-grid">
+    <label class="conditions-label" for="vulnerable">Vulnerable</label>
+    <input type="checkbox" id="vulnerable" class="vulnerable" name="attr_vulnerable" />
+
+    <label class="conditions-label" for="hidden">Hidden</label>
+    <input type="checkbox" id="state_hidden" class="state_hidden" name="attr_state_hidden" />
+
+    <label class="conditions-label" for="restrained">Restrained</label>
+    <input type="checkbox" id="restrained" class="restrained" name="attr_restrained" />
+  </div>
 </div>
 
 <div class="level-wrapper">
@@ -1322,6 +1358,8 @@
 </div>
 </div>
 
+<!-- script to add level to armor thresholds -->
+
 <script type="text/worker">
   on("change:level change:armor_major_threshold change:armor_severe_threshold", function () {
     getAttrs(["level", "armor_major_threshold", "armor_severe_threshold"], function (values) {
@@ -1341,6 +1379,8 @@
     });
   });
 </script>
+
+<!-- armor script for thresholds + level and active -->
 
 <script type="text/worker">
   on("change:level change:repeating_armor change:repeating_armor:armor_active change:repeating_armor:armor_major_threshold change:repeating_armor:armor_severe_threshold", function () {
@@ -1386,6 +1426,8 @@
   });
 </script>
 
+<!-- armor script for score boxes -->
+
 <script type="text/worker">
   on("change:repeating_armor:armor_score", function (eventInfo) {
     const id = eventInfo.sourceAttribute.split("_")[2];
@@ -1404,6 +1446,8 @@
   });
 </script>
 
+<!-- weapon script for attack trait -->
+
 <script type="text/worker">
 on("change:repeating_weapons:attack_trait", function(eventInfo) {
   getAttrs([
@@ -1418,6 +1462,8 @@ on("change:repeating_weapons:attack_trait", function(eventInfo) {
   });
 });
 </script>
+
+<!-- armor script for thresholds -->
 
 <script type="text/worker">
   on("change:level change:armor_major_threshold change:armor_severe_threshold", function () {
@@ -1438,6 +1484,8 @@ on("change:repeating_weapons:attack_trait", function(eventInfo) {
     });
   });
 </script>
+
+<!-- stat script for domain effects and feature effect bonuses -->
 
 <script type="text/worker">
 const stats = ["strength", "agility", "finesse", "instinct", "presence", "knowledge", "attack"];
@@ -1504,6 +1552,8 @@ stats.forEach(stat => {
 });
 </script>
 
+<!-- slots script for hp -->
+
 <script type="text/worker">
 const cascadeSlots = [
   'slots1','slots2','slots3','slots4','slots5',
@@ -1531,6 +1581,8 @@ cascadeSlots.forEach((slot, index) => {
   });
 });
 </script>
+
+<!-- slots script for stress -->
 
 <script type="text/worker">
   const stressSlots = [
@@ -1560,6 +1612,8 @@ stressSlots.forEach((slot, index) => {
 });
 </script>
 
+<!-- slots script for hope -->
+
 <script type="text/worker">
   const hopeSlots = [
   'hope_slot_1','hope_slot_2','hope_slot_3','hope_slot_4','hope_slot_5',
@@ -1588,6 +1642,8 @@ hopeSlots.forEach((slot, index) => {
 });
 </script>
 
+<!-- script to make hope be linear in number of boxes clicked. if you click box 3 then box 1 and 2 will be clicked -->
+
 <script type="text/worker">
 on("change:hope_max sheet:opened", () => {
   getAttrs(["hope_max"], (v) => {
@@ -1602,6 +1658,8 @@ on("change:hope_max sheet:opened", () => {
   });
 });
 </script>
+
+<!-- script to calc stat bonuses with mods -->
 
 <script type="text/worker">
 const stats = [
@@ -1744,6 +1802,8 @@ on("change:repeating_weapons:attack_trait", (event) => {
 });
 </script>
 
+<!-- script to calculate global weapon mods -->
+
 <script type="text/worker">
 const baseStats = [
   "agility",
@@ -1813,6 +1873,8 @@ function updateTotals() {
   });
 }
 </script>
+
+<!-- script to monitor changes to weaponmods -->
 
 <script type="text/worker">
 on("change:repeating_weaponmods remove:repeating_weaponmods", function () {
